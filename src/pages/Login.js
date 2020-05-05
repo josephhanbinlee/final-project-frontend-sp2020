@@ -1,9 +1,13 @@
 import React from 'react';
+import LoginForm from "../components/LoginForm";
 
-function Login() {
+function Login({LoginFunction}) {
     return(
-        <div>
+        <div className="Wrapper">
             <h1> Login </h1>
+            <div className="CreateWrapper">
+                <LoginForm LoginFunction={LoginFunction} />
+            </div>
         </div>
     );
 }

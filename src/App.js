@@ -3,11 +3,14 @@ import './App.css';
 import {Route, BrowserRouter as Router, Redirect} from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import Header from "./components/Header";
 
 // Pages
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
 import Home from "./pages/Home";
+import UserProfile from "./pages/UserProfile";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -119,25 +122,32 @@ function App() {
         }) 
   
     }
-  
+
   if (loading) return null;
 
+  console.log(loggedIn);
   return (
     <div className="App">
+      <Header LogoutFunction={LogoutFunction} isLoggedIn={loggedIn}/>
       <Router>
+
         <Route exact path="/">
-          <Home />
+          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation}/>)}
+        </Route>
+
+        <Route exact path="/create-post">
+          {!loggedIn ? (<Redirect to="/login"/> ) : (<CreatePost/>)}
         </Route>
 
         <Route exact path="/login">
-        {!loggedIn ?
-        (<Login LoginFunction={LoginFunction}/>) : (<Redirect to="/" />)}
-      </Route>
+          {!loggedIn ?
+          (<Login LoginFunction={LoginFunction}/>) : (<Redirect to="/" />)}
+        </Route>
 
-      <Route exact path="/create-account">
-        {!loggedIn ?
-        (<CreateAccount CreateAccountFunction={CreateAccountFunction} />) : (<Redirect to="/" />)}
-      </Route>
+        <Route exact path="/create-account">
+          {!loggedIn ?
+          (<CreateAccount CreateAccountFunction={CreateAccountFunction} />) : (<Redirect to="/" />)}
+        </Route>
 
       </Router>
     </div>

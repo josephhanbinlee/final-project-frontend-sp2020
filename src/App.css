@@ -1,3 +1,84 @@
 .App{
   
 }
+
+.Header {
+    width: 100%;
+    border-bottom: 1px solid black;
+
+}
+.Wrapper {
+    margin: 0 auto;
+    max-width: 1080px;
+}
+
+.Header_Wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1080px;
+    padding: 15px 25px;
+    
+    
+
+}
+
+
+.Header_nav a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 2px 5px;
+}
+
+.Form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Form label {
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 0.7;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+
+}
+
+.Form input {
+    font-size: 16px;
+    padding: 8px 5px;
+    margin-bottom: 20px;
+}
+
+.Form button {
+    font-size: 16px;
+    padding: 8px 5px;
+
+}
+
+
+.CreateWrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.CreateWrapper > div {
+    flex-basis: 75%;
+    width: 100%;
+}
+
+.CreateInformation {
+    padding-left: 25px;
+}
+
+.LoginForm {
+    margin: 0;
+    max-width: 500px;
+}
