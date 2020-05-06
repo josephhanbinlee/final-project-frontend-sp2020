@@ -26,6 +26,8 @@ function Home( {userInformation}) {
         })
     }, []); /* [] is updated and useEffect will keep running --> bc  */
 
+    console.log(allPosts);
+
 function createScrapbookFunction(e) {
     e.preventDefault();
     console.log(e);
@@ -39,13 +41,13 @@ function createScrapbookFunction(e) {
             <h1> Welcome, {email} </h1>
             <div className="CreateScrapbook">
                 <h2> Make a New Scrapbook! </h2>
-                <CreateScrapbookForm createScrapbookFunction={createScrapbookFunction}/>
+                <CreateScrapbookForm />
             </div>
             <div className="">
                 {/*Display Posts Here */}
 
                 {allPosts.map((post, i) => (
-                    <p key={i}>{post.scrapbook} </p>
+                    <p key={i}> <a href = {`/?scrapbook=${post.scrapbook}`}>{post.scrapbook} </a> </p>
                 ))}
                 
             </div>
