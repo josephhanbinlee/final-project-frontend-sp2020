@@ -6,12 +6,13 @@ import {useHistory} from 'react-router';
 import CreateScrapbookForm from '../components/CreateScrapbookForm';
 import MemoriesList from '../components/CreateMemoryForm';
 
-function Home( {userInformation}) {
-    let history = useHistory();
+function Home({userInformation, createPostWithImage}) {
+
+    console.log("user information",userInformation);
 
     console.log(userInformation);
     const [allScrapbooks, setAllScrapbooks] = useState([]);
-    const[myScrapbook, setScrapbook] = useState('');
+    const [myScrapbook, setScrapbook] = useState('');
     const email = userInformation.email;
     const uid = userInformation.uid;
 
@@ -34,35 +35,33 @@ function Home( {userInformation}) {
 
     console.log(allScrapbooks);
 
-    function createScrapbookFunction(e) {
+    async function createScrapbookFunction(e) {
         e.preventDefault();
         let scrapbookId = e.currentTarget.scrapbookId.value;
+        let text = e.currentTarget.text.value;
         let idFromText = scrapbookId.replace(/\s+/g, "-").toLowerCase().substr(0,16);
         let userId = uid;
 
-        console.log(scrapbookId, idFromText, userId);
-
         axios
-        .get(
-            `http://localhost:4000/create-scrapbook?scrapbookId=${scrapbookId}&id=${idFromText}&userId=${userId}`
-        )
-        .then(function (response) {
-            console.log('response', response)
-        })
-        .catch(function(error) {
-            console.log(error)
-        })
+            .get(
+                `http://localhost:4000/create-scrapbook?scrapbookId=${scrapbookId}&id=${idFromText}&userId=${userId}&text=${text}`
+            )
+            .then(function (response) {
+                console.log('response', response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            }) 
 
-    }
+        } 
 
     return(
         <div className = "HomeWrapper">
             <h1> Welcome, {email} </h1>
-            <div className="CreateScrapbook">
-                <h2> <a href="/create-scrapbook"> Make a New Scrapbook! </a> </h2>
-                <CreateScrapbookForm createScrapbookFunction={createScrapbookFunction} />
-
+            <div>
+            <CreateScrapbookForm createScrapbookFunction={createPostWithImage}/>
             </div>
+
             <div className="ScrapbookWrapper">
 
                 {allScrapbooks.map((post, i) => (

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import './App.css';
 import {Route, BrowserRouter as Router, Redirect} from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/storage";
 import Header from "./components/Header";
 
 // Pages
@@ -16,6 +18,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userInformation, setUserInformation] = useState({});
+  const[storageRef, setStorageRef] = useState(null);
 
   var firebaseConfig = {
     apiKey: "AIzaSyBAzVaQUZLREshHTHzbqyI7IY1I-Y6vkaA",
@@ -45,7 +48,9 @@ function App() {
         .catch(function(e) {
           console.log('AUTH ERROR', e);
         });
+
     }, [firebaseConfig]);
+    
   
   // Check to see if User is logged in
   // User loads page, check status --> set state accordingly
@@ -67,72 +72,136 @@ function App() {
   
   }, [])
 
-    // Login
-    function LoginFunction(e) {
-      e.preventDefault();
-      let email = e.currentTarget.loginEmail.value;
-      let password = e.currentTarget.loginPassword.value;
-  
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(function(response) {
-          console.log("LOGIN RESPONSE", response);
-          console.log("login success")
-          setLoggedIn(true);
-        })
-        .catch(function(error) {
-          console.log("LOGIN ERROR", error)
-        })
-    }
+  // Login
+  function LoginFunction(e) {
+    e.preventDefault();
+    let email = e.currentTarget.loginEmail.value;
+    let password = e.currentTarget.loginPassword.value;
 
-    // Logout
-    function LogoutFunction() {
-      firebase
+    firebase
       .auth()
-      .signOut()
-      .then(function() {
-        setLoggedIn(false);
-        console.log("logout success")
+      .signInWithEmailAndPassword(email, password)
+      .then(function(response) {
+        console.log("LOGIN RESPONSE", response);
+        console.log("login success")
+        setLoggedIn(true);
       })
       .catch(function(error) {
-        console.log("LOGOUT ERROR", error)
-      });
-  
-    }
+        console.log("LOGIN ERROR", error)
+      })
+  }
 
-    // Create Acc
-    function CreateAccountFunction(e) {
-      e.preventDefault(); // prevents the form from being set as a default form
-      console.log("form payload", e);
-      // Default values for testing --> named in CreatAccForm.js
-      let email = e.currentTarget.createEmail.value;
-      let password = e.currentTarget.createPassword.value;
-  
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(function(response) {
-          console.log("VALID ACCOUNT CREATE", response);
-          console.log("account success")
-          setLoggedIn(true);
-        })
-        .catch(function(e) {
-          console.log("CREATE ACCOUNT ERROR", e);
-        }) 
-  
-    }
+  // Logout
+  function LogoutFunction() {
+    firebase
+    .auth()
+    .signOut()
+    .then(function() {
+      setLoggedIn(false);
+      console.log("logout success")
+    })
+    .catch(function(error) {
+      console.log("LOGOUT ERROR", error)
+    });
+
+  }
+
+  // Create Acc
+  function CreateAccountFunction(e) {
+    e.preventDefault(); // prevents the form from being set as a default form
+    console.log("form payload", e);
+    // Default values for testing --> named in CreatAccForm.js
+    let email = e.currentTarget.createEmail.value;
+    let password = e.currentTarget.createPassword.value;
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(function(response) {
+        console.log("VALID ACCOUNT CREATE", response);
+        console.log("account success")
+        setLoggedIn(true);
+      })
+      .catch(function(e) {
+        console.log("CREATE ACCOUNT ERROR", e);
+      }) 
+
+  }
+/*
+  async function UploadImage(e) {
+    // for images
+    const storageRef = firebase.storage().ref();
+    const fileRef = e.currentTarget.memoryImage.files[0];
+    const uploadTask = storageRef
+      .child(`${fileRef.name}`)
+      .put(fileRef);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+          console.log("snapshot", snapshot);
+        }, (error) => {
+          // Handle unsuccessful uploads
+          console.log(error);
+        }, () => {
+            // Do something once upload is complete
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            return downloadURL;
+          });
+        });
+  } */
+    
+  function createPostWithImage(e) {
+    e.preventDefault();
+    const storageRef = firebase.storage().ref();
+    const fileRef = e.currentTarget.memoryImage.files[0];
+    const uploadTask = storageRef
+      .child(`${fileRef.name}`)
+      .put(fileRef);
+
+    let scrapbookId = e.currentTarget.scrapbookId.value;
+    let text = e.currentTarget.text.value;
+    let idFromText = scrapbookId.replace(/\s+/g, "-").toLowerCase().substr(0,16);
+    let userId = userInformation.uid;
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      }, (error) => {
+        // Handle unsuccessful uploads
+        console.log(error);
+      }, () => {
+          // Do something once upload is complete
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+
+          axios
+            .get(
+                `http://localhost:4000/create-scrapbook?scrapbookId=${scrapbookId}&id=${idFromText}&userId=${userId}&text=${text}&image=${downloadURL}`
+            )
+            .then(function (response) {
+                console.log('response', response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            }) 
+        
+        });
+      });
+  }
+
 
   if (loading) return null;
 
-  console.log(loggedIn);
   return (
     <div className="App">
       <Header LogoutFunction={LogoutFunction} isLoggedIn={loggedIn}/>
       <Router>
 
         <Route exact path="/">
-          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation}/>)}
+          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation} createPostWithImage={createPostWithImage}/>)}
         </Route>
 
         <Route exact path="/post/:id">
@@ -140,7 +209,7 @@ function App() {
         </Route>
 
         <Route exact path="/create-post">
-          {!loggedIn ? (<Redirect to="/login"/> ) : (<CreatePost/>)}
+          {!loggedIn ? (<Redirect to="/login"/> ) : (<CreatePost userInformation={userInformation}/>)}
         </Route>
 
         <Route exact path="/login">

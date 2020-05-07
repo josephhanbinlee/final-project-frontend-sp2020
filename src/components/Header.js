@@ -6,10 +6,10 @@ function Header( {LogoutFunction, isLoggedIn}) {
             <div className="Header_Wrapper">
                 <div className="Header_logo"> Scrapbook </div>
                 <nav className="Header_nav">
-                    {isLoggedIn && <a href="/">My Scrapbooks</a>}
+                    {isLoggedIn && <a href="/">My Memories</a>}
                     {!isLoggedIn && <a href="create-account">Create Account</a> }
                     {!isLoggedIn && <a href="/login">Login</a> }
-                    {/*isLoggedIn && <a href="/create-scrapbook">Create</a>*/}
+                    {isLoggedIn && <a href="/create-scrapbook">Create Memory </a>}
                     {isLoggedIn && <a onClick={() => LogoutFunction()}>Log Out</a>}
                 </nav>
             </div>

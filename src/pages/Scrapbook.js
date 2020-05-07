@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios"
 import CreateMemoryForm from "../components/CreateMemoryForm";
+import AllPosts from "../components/AllPosts";
 
 function Scrapbook() {
     const { id } = useParams();
@@ -10,7 +11,7 @@ function Scrapbook() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4000/post/${id}`)
+            .get(`http://localhost:4000/scrapbook/${id}`)
             .then(function(response) {
                 setPostData(response.data);
             })
@@ -19,13 +20,12 @@ function Scrapbook() {
             });
     }, []);
 
+    console.log("text", postData)
+
     return(
         <div className="Scrapbook">
-            <p> Single Post </p>
-            <p>{postData.scrapbookId}</p>
+            <img src={postData.image} alt={postData.id} />
             <p>{postData.text}</p>
-
-            <CreateMemoryForm />
         </div>
     )
 }
