@@ -4,7 +4,7 @@
 
 .Header {
     width: 100%;
-    border-bottom: 1px solid black;
+    background-color: wheat;
 
 }
 .Wrapper {
@@ -20,8 +20,6 @@
     margin: 0 auto;
     max-width: 1080px;
     padding: 15px 25px;
-    
-    
 
 }
 
@@ -34,7 +32,12 @@
     padding: 2px 5px;
 }
 
+.HomeWrapper {
+    padding: 0 25px;
+}
+
 .Form {
+    margin: 0 auto 0 auto;
     display: flex;
     flex-direction: column;
 
@@ -81,4 +84,37 @@
 .LoginForm {
     margin: 0;
     max-width: 500px;
+}
+
+.CreateScrapbookForm {
+    align-content: flex-start;
+    padding-left: 50px;
+}
+.CreateScrapbookForm input{
+    width: 50%;
+}
+.CreateScrapbookForm button{
+    width: 50%;
+}
+
+.ScrapbookPair {
+    display: flex;
+    flex-direction: column;
+}
+.ScrapbookWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.ScrapbookWrapper a {
+    color: black;
+    text-decoration: none;
+    border-width: 50px;
+}
+
+.square {
+    background-color: white;
+    width: 50px;
+    height: 50px;
 }

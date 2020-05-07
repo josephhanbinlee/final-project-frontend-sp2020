@@ -9,8 +9,8 @@ import Header from "./components/Header";
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
 import Home from "./pages/Home";
-import UserProfile from "./pages/UserProfile";
 import CreatePost from "./pages/CreatePost";
+import Scrapbook from "./pages/Scrapbook";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -135,6 +135,10 @@ function App() {
           {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation}/>)}
         </Route>
 
+        <Route exact path="/post/:id">
+          {!loggedIn ? (<Redirect to="/login"/> ) : (<Scrapbook/>)}
+        </Route>
+
         <Route exact path="/create-post">
           {!loggedIn ? (<Redirect to="/login"/> ) : (<CreatePost/>)}
         </Route>
@@ -147,6 +151,10 @@ function App() {
         <Route exact path="/create-account">
           {!loggedIn ?
           (<CreateAccount CreateAccountFunction={CreateAccountFunction} />) : (<Redirect to="/" />)}
+        </Route>
+
+        <Route exact path="/create-scrapbook">
+          {!loggedIn ? (<Redirect to ="/login" />) : (<CreatePost />)}
         </Route>
 
       </Router>
