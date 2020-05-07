@@ -15,7 +15,7 @@ function CreatePost({userInformation}) {
         let idFromText = scrapbookId.replace(/\s+/g, "-").toLowerCase().substr(0,16);
         let userId = uid;
 
-        console.log(scrapbookId, idFromText, userId, text);
+        console.log("post information:", scrapbookId, idFromText, userId, text);
 
         axios
             .get(
@@ -30,7 +30,7 @@ function CreatePost({userInformation}) {
 
         }
 
-    console.log(userInformation);
+    console.log("user:", userInformation);
 
     return(
         <div className="Form CreateScrapbookForm">

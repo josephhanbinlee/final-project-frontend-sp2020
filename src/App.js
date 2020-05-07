@@ -209,7 +209,9 @@ function App() {
         </Route>
 
         <Route exact path="/create-post">
-          {!loggedIn ? (<Redirect to="/login"/> ) : (<CreatePost userInformation={userInformation}/>)}
+          {!loggedIn ? (<Redirect to="/login"/> ) :
+          (<CreatePost userInformation={userInformation}
+          createPostWithImage={createPostWithImage}/>)}
         </Route>
 
         <Route exact path="/login">
