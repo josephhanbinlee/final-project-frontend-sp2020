@@ -10,7 +10,7 @@ function Scrapbook() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4000/scrapbook/${id}`)
+            .get(`https://fathomless-savannah-67726.herokuapp.com/scrapbook/${id}`)
             .then(function(response) {
                 setPostData(response.data);
             })

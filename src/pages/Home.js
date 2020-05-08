@@ -11,8 +11,7 @@ function Home({userInformation, loading}) {
     useEffect(() => {
         axios
             .get(
-                `http://localhost:4000`
-                /*`https://fathomless-savannah-67726.herokuapp.com/` */
+                `https://fathomless-savannah-67726.herokuapp.com/`
             )
             .then(function (response) {
             // handle success
