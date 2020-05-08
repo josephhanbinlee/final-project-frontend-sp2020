@@ -208,12 +208,6 @@ function App() {
           {!loggedIn ? (<Redirect to="/login"/> ) : (<Scrapbook/>)}
         </Route>
 
-        <Route exact path="/create-post">
-          {!loggedIn ? (<Redirect to="/login"/> ) :
-          (<CreatePost userInformation={userInformation}
-          createPostWithImage={createPostWithImage}/>)}
-        </Route>
-
         <Route exact path="/login">
           {!loggedIn ?
           (<Login LoginFunction={LoginFunction}/>) : (<Redirect to="/" />)}
@@ -225,7 +219,8 @@ function App() {
         </Route>
 
         <Route exact path="/create-scrapbook">
-          {!loggedIn ? (<Redirect to ="/login" />) : (<CreatePost />)}
+          {!loggedIn ? (<Redirect to ="/login" />) : (<CreatePost userInformation={userInformation}
+          createPostWithImage={createPostWithImage}/>)}
         </Route>
 
       </Router>
