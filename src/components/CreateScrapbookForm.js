@@ -5,7 +5,7 @@ function CreateScrapbookForm({createScrapbookFunction}) {
     return (
         <form className="Form CreateScrapbookForm"
         onSubmit={(e) => createScrapbookFunction(e)}>
-            <label htmlFor="scrapbookId"> Memory Title </label>
+            <label htmlFor="scrapbookId"> A few words to title your memory: </label>
             <input type = "text" name="scrapbookId" />
             <label htmlFor="scrapbookId"> Description </label>
             <input type = "text" name="text" />

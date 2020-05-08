@@ -9,7 +9,8 @@ function CreateAccount( {CreateAccountFunction} ) {
                 <CreateAccountForm CreateAccountFunction={CreateAccountFunction} />
                 <div className="CreateInformation">
                     <h2> About Scrapbook </h2>
-                    <p> lorem ipsum...</p>
+                    <p> Scrapbook is a new social media site dedicated to helping you store important memories in your life. </p>
+                    <p> Don't spend so much time focusing on getting likes. Post your pictures and memories just for you. </p>
                 </div>
             </div>
         </div>

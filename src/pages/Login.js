@@ -3,7 +3,7 @@ import LoginForm from "../components/LoginForm";
 
 function Login({LoginFunction}) {
     return(
-        <div className="Wrapper">
+        <div className="Wrapper Login">
             <h1> Login </h1>
             <div className="CreateWrapper">
                 <LoginForm LoginFunction={LoginFunction} />

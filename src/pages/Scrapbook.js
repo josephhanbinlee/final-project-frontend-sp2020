@@ -7,7 +7,6 @@ import AllPosts from "../components/AllPosts";
 function Scrapbook() {
     const { id } = useParams();
     const[postData, setPostData] = useState({});
-    console.log("id", id)
 
     useEffect(() => {
         axios
@@ -20,12 +19,11 @@ function Scrapbook() {
             });
     }, []);
 
-    console.log("text", postData)
-
     return(
         <div className="Scrapbook">
+            <h2>{postData.scrapbookId}</h2>
             <img src={postData.image} alt={postData.id} />
-            <p>{postData.date}</p>
+            <h4 id="date">{postData.date}</h4>
             <p>{postData.text}</p>
         </div>
     )

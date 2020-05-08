@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import {useHistory} from 'react-router';
 
-// Components
-import CreateScrapbookForm from '../components/CreateScrapbookForm';
-import MemoriesList from '../components/CreateMemoryForm';
-
-function Home({userInformation}) {
-
-    console.log("user information",userInformation);
-
-    console.log(userInformation);
+function Home({userInformation, loading}) {
     const [allScrapbooks, setAllScrapbooks] = useState([]);
     const [myScrapbook, setScrapbook] = useState('');
     const email = userInformation.email;
@@ -21,7 +13,6 @@ function Home({userInformation}) {
             .get(
                 `http://localhost:4000`
                 /*`https://fathomless-savannah-67726.herokuapp.com/` */
-                // heroku api website
             )
             .then(function (response) {
             // handle success
@@ -31,16 +22,16 @@ function Home({userInformation}) {
             // handle error
             console.log(error);
         })
-    }, []); /* [] is updated and useEffect will keep running --> bc  */
-
-    console.log("# of Scrapbooks", allScrapbooks.length);
+    }, []); /* [] is updated and useEffect will keep running */
 
     let header = '';
     if (allScrapbooks.length != 0) {
-        header = "Here are your memories";
+        header = "Here are your memories:"
     } else {
         header = "You don't have any memories so far. Why don't you create some?"
     }
+
+    if (loading) return null;
 
     return(
         <div className = "HomeWrapper">
@@ -53,8 +44,9 @@ function Home({userInformation}) {
                     <div className="SampleWrapper"key={i}> 
                         <a href = {`/post/${post.id}`}>
                         <img src={post.image} alt={post.id} />
+                        <h3>{post.scrapbookId}</h3>
                         <p> {post.date} </p>
-                        {post.scrapbookId} </a> 
+                         </a> 
                     </div>
                 ))} 
             </div>

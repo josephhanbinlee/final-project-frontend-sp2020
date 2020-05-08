@@ -58,7 +58,6 @@ function App() {
     firebase.auth().onAuthStateChanged(function(user) {
       if(user) {
         // Logged in
-        console.log("user",user);
         setUserInformation(user);
         setLoggedIn(true);
       } else {
@@ -109,7 +108,6 @@ function App() {
   // Create Acc
   function CreateAccountFunction(e) {
     e.preventDefault(); // prevents the form from being set as a default form
-    console.log("form payload", e);
     // Default values for testing --> named in CreatAccForm.js
     let email = e.currentTarget.createEmail.value;
     let password = e.currentTarget.createPassword.value;
@@ -177,7 +175,7 @@ function App() {
       <Router>
 
         <Route exact path="/">
-          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation}/>)}
+          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation} loading={loading}/>)}
         </Route>
 
         <Route exact path="/post/:id">

@@ -4,7 +4,6 @@ import axios from 'axios';
 import CreateScrapbookForm from '../components/CreateScrapbookForm';
 
 function CreatePost({userInformation, createPostWithImage}) {
-    console.log("user:", userInformation);
 
     return(
         <div className="Form CreateScrapbookForm">
