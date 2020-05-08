@@ -25,6 +25,7 @@ function Scrapbook() {
     return(
         <div className="Scrapbook">
             <img src={postData.image} alt={postData.id} />
+            <p>{postData.date}</p>
             <p>{postData.text}</p>
         </div>
     )

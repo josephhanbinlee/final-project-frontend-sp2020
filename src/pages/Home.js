@@ -6,7 +6,7 @@ import {useHistory} from 'react-router';
 import CreateScrapbookForm from '../components/CreateScrapbookForm';
 import MemoriesList from '../components/CreateMemoryForm';
 
-function Home({userInformation, createPostWithImage}) {
+function Home({userInformation}) {
 
     console.log("user information",userInformation);
 
@@ -33,39 +33,29 @@ function Home({userInformation, createPostWithImage}) {
         })
     }, []); /* [] is updated and useEffect will keep running --> bc  */
 
-    console.log(allScrapbooks);
+    console.log("# of Scrapbooks", allScrapbooks.length);
 
-    async function createScrapbookFunction(e) {
-        e.preventDefault();
-        let scrapbookId = e.currentTarget.scrapbookId.value;
-        let text = e.currentTarget.text.value;
-        let idFromText = scrapbookId.replace(/\s+/g, "-").toLowerCase().substr(0,16);
-        let userId = uid;
-
-        axios
-            .get(
-                `http://localhost:4000/create-scrapbook?scrapbookId=${scrapbookId}&id=${idFromText}&userId=${userId}&text=${text}`
-            )
-            .then(function (response) {
-                console.log('response', response)
-            })
-            .catch(function(error) {
-                console.log(error)
-            }) 
-
-        } 
+    let header = '';
+    if (allScrapbooks.length != 0) {
+        header = "Here are your memories";
+    } else {
+        header = "You don't have any memories so far. Why don't you create some?"
+    }
 
     return(
         <div className = "HomeWrapper">
             <h1> Welcome, {email} </h1>
-            <div>
-            <CreateScrapbookForm createScrapbookFunction={createPostWithImage}/>
-            </div>
+            <h2> {header} </h2>
 
             <div className="ScrapbookWrapper">
 
                 {allScrapbooks.map((post, i) => (
-                    <p key={i}> <a href = {`/post/${post.id}`}>{post.scrapbookId} </a> </p>
+                    <div className="SampleWrapper"key={i}> 
+                        <a href = {`/post/${post.id}`}>
+                        <img src={post.image} alt={post.id} />
+                        <p> {post.date} </p>
+                        {post.scrapbookId} </a> 
+                    </div>
                 ))} 
             </div>
             <p> {myScrapbook}</p>

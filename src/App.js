@@ -127,31 +127,6 @@ function App() {
       }) 
 
   }
-/*
-  async function UploadImage(e) {
-    // for images
-    const storageRef = firebase.storage().ref();
-    const fileRef = e.currentTarget.memoryImage.files[0];
-    const uploadTask = storageRef
-      .child(`${fileRef.name}`)
-      .put(fileRef);
-
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-          console.log("snapshot", snapshot);
-        }, (error) => {
-          // Handle unsuccessful uploads
-          console.log(error);
-        }, () => {
-            // Do something once upload is complete
-            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            console.log('File available at', downloadURL);
-            return downloadURL;
-          });
-        });
-  } */
     
   function createPostWithImage(e) {
     e.preventDefault();
@@ -165,6 +140,7 @@ function App() {
     let text = e.currentTarget.text.value;
     let idFromText = scrapbookId.replace(/\s+/g, "-").toLowerCase().substr(0,16);
     let userId = userInformation.uid;
+    let myDate = new Date().toDateString();
 
     uploadTask.on(
       'state_changed',
@@ -179,7 +155,7 @@ function App() {
 
           axios
             .get(
-                `http://localhost:4000/create-scrapbook?scrapbookId=${scrapbookId}&id=${idFromText}&userId=${userId}&text=${text}&image=${downloadURL}`
+                `http://localhost:4000/create-scrapbook?scrapbookId=${scrapbookId}&id=${idFromText}&userId=${userId}&text=${text}&image=${downloadURL}&date=${myDate}`
             )
             .then(function (response) {
                 console.log('response', response)
@@ -201,7 +177,7 @@ function App() {
       <Router>
 
         <Route exact path="/">
-          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation} createPostWithImage={createPostWithImage}/>)}
+          {!loggedIn ? (<Redirect to="/create-account"/> ) : (<Home userInformation={userInformation}/>)}
         </Route>
 
         <Route exact path="/post/:id">

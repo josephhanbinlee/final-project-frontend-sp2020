@@ -121,5 +121,15 @@
 .Scrapbook img {
     display: block;
     margin: 0 auto;
-    max-width: 200px;
+    max-height: 300px;
+}
+
+.ScrapbookWrapper img {
+    max-height: 200px;
+}
+
+.SampleWrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
