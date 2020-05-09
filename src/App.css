@@ -1,6 +1,7 @@
 .Header {
     width: 100%;
     background-color: wheat;
+    font-family: 'Playfair Display';
 
 }
 .Wrapper {
@@ -19,6 +20,10 @@
 
 }
 
+.Header_logo {
+    font-size: 30px;
+    font-weight: bold;
+}
 
 .Header_nav a {
     color: black;
