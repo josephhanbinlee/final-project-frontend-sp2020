@@ -9,6 +9,10 @@
     max-width: 1080px;
 }
 
+.Wrapper h1 {
+    font-family: "Playfair Display"
+}
+
 .Header_Wrapper {
     align-items: center;
     display: flex;
@@ -64,6 +68,10 @@
 
 }
 
+.Form h1 {
+    font-family: "Playfair Display"
+}
+
 .Form label {
     font-size: 12px;
     font-weight: bold;
@@ -82,7 +90,7 @@
 .Form button {
     font-size: 16px;
     padding: 8px 5px;
-    border-radius: 5px;
+    border-radius: 2px;
 
 }
 
@@ -124,7 +132,7 @@
 
 .CreateScrapbookForm button{
     border: 0px;
-    border-radius: 50px;
+    border-radius: 5px;
     width: 50%;
 }
 
