@@ -6,7 +6,7 @@ function CreatePost({userInformation, createPostWithImage}) {
 
     return(
         <div className="Form CreateScrapbookForm">
-            <h1> Create a New Scrapbook! </h1>
+            <h1> What do you want to remember? </h1>
             <CreateScrapbookForm createScrapbookFunction={createPostWithImage}/>
         </div>
     )
