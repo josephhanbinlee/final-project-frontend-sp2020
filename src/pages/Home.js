@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import {useHistory} from 'react-router';
 
 function Home({userInformation, loading}) {
     const [allScrapbooks, setAllScrapbooks] = useState([]);
-    const [myScrapbook, setScrapbook] = useState('');
-    const email = userInformation.email;
-    const uid = userInformation.uid;
 
     useEffect(() => {
         axios
@@ -24,17 +20,17 @@ function Home({userInformation, loading}) {
     }, []); /* [] is updated and useEffect will keep running */
 
     let header = '';
-    if (allScrapbooks.length != 0) {
+    if (allScrapbooks.length !== 0) {
         header = "Here are your memories:"
     } else {
-        header = "You don't have any memories so far. Why don't you create some?"
+        header = "You don't have any memories so far. Click on 'Create Memory' at the top to make some!"
     }
 
     if (loading) return null;
 
     return(
         <div className = "HomeWrapper">
-            <h1> Welcome, {email} </h1>
+            <h1> Welcome to your Scrapbook! </h1>
             <h2> {header} </h2>
 
             <div className="ScrapbookWrapper">
@@ -49,7 +45,6 @@ function Home({userInformation, loading}) {
                     </div>
                 ))} 
             </div>
-            <p> {myScrapbook}</p>
         </div>
     );
 }

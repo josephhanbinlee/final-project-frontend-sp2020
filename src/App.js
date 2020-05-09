@@ -164,6 +164,7 @@ function App() {
         
         });
       });
+    setTimeout(function() { alert("Submitted\nYou can go back to your memories to find this!"); }, 5000);
   }
 
 

@@ -4,7 +4,7 @@ function Header( {LogoutFunction, isLoggedIn}) {
     return (
         <header className="Header">
             <div className="Header_Wrapper">
-                <div className="Header_logo"> Scrapbook </div>
+                <div className="Header_logo"> <a href="/"> Scrapbook </a> </div>
                 <nav className="Header_nav">
                     {isLoggedIn && <a href="/">My Memories</a>}
                     {!isLoggedIn && <a href="create-account">Create Account</a> }

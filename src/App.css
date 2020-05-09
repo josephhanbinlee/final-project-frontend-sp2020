@@ -25,12 +25,28 @@
     font-weight: bold;
 }
 
+.Header_logo a{
+    color: black;
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.Header_logo a:hover {
+    color: whitesmoke;
+}
+
 .Header_nav a {
+    border-bottom: 1px solid transparent;
     color: black;
     font-weight: bold;
     text-decoration: none;
     margin: 0 10px;
     padding: 2px 5px;
+    transition: border-bottom 300ms ease;
+}
+
+.Header_nav a:hover {
+    border-bottom: 1px solid black;
 }
 
 .HomeWrapper {
@@ -132,8 +148,20 @@
 }
 
 .Scrapbook {
-    padding: 50px 200px;
+    padding: 25px 200px 50px;
     text-align: left;
+}
+
+.Scrapbook a{
+    color: black;
+    text-decoration: none;
+    transition: color 300ms ease;
+    transition: color 300ms ease;
+    font-weight: bold;
+}
+
+.Scrapbook a:hover{
+    color:#e6d7b1;
 }
 
 .Scrapbook h2 {
